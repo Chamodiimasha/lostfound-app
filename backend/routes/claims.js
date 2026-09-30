@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const c = require('../controllers/claimController');
+const auth = require('../middleware/auth');
+router.use(auth);
+router.post('/', c.createClaim);
+router.get('/mine', c.getMyClaims);
+router.get('/item/:itemId', c.getClaimsForItem);
+router.route('/:id').get(c.getClaim).put(c.updateClaim).delete(c.deleteClaim);
+router.patch('/:id/status', c.decideClaim);
+router.patch('/:id/cancel', c.cancelClaim);
+module.exports = router;
